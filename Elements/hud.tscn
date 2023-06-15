@@ -1,0 +1,82 @@
+[gd_scene load_steps=6 format=3 uid="uid://bu6sdb2w5m32x"]
+
+[ext_resource type="Script" path="res://Scripts/HUD.gd" id="1_veqkh"]
+[ext_resource type="FontFile" uid="uid://dfnc7lof3qswe" path="res://Art/ARCADECLASSIC.TTF" id="2_64qab"]
+[ext_resource type="Theme" uid="uid://de8wxdd5c2qh0" path="res://ui_theme.tres" id="2_jr6rj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghafg"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_71wfu"]
+bg_color = Color(0.831373, 0, 0.160784, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_veqkh")
+
+[node name="Message" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -69.0
+offset_top = -13.0
+offset_right = 69.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_64qab")
+theme_override_font_sizes/font_size = 64
+
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -104.0
+offset_top = -137.0
+offset_right = 125.0
+offset_bottom = -37.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_64qab")
+theme_override_font_sizes/font_size = 64
+text = "Start"
+
+[node name="MessageTimer" type="Timer" parent="."]
+
+[node name="TopMenu" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(500, 30)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -34.5
+offset_right = 34.5
+offset_bottom = 27.0
+grow_horizontal = 2
+
+[node name="HealthBar" type="ProgressBar" parent="TopMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("2_jr6rj")
+theme_override_styles/background = SubResource("StyleBoxFlat_ghafg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_71wfu")
+value = 100.0
+show_percentage = false
+
+[node name="ScoreLabel" type="Label" parent="TopMenu"]
+layout_mode = 2
+theme = ExtResource("2_jr6rj")
+theme_override_fonts/font = ExtResource("2_64qab")
+theme_override_font_sizes/font_size = 32
+text = "Score: 0"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
